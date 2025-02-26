@@ -57,7 +57,7 @@ export default function RegistrationScreen2({ navigation }) {
     return {
         paddingBottom:withTiming(getAway.value, {duration: 300,easing:Easing.bezier(0.5, 0.01, 0, 1)})
     };
-});
+  });
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -88,7 +88,7 @@ export default function RegistrationScreen2({ navigation }) {
 
         <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: '#2C2C2C', justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 }}>
             <Text style={{ color: !category?'#FFF':'#4CAF50', fontSize: 18, fontFamily: 'RubikBold' }}>{category?.title||'Choisir une catégorie'}</Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
 
         <View style={{ marginBottom: 20, width: '80%' }}>
           <TextInput

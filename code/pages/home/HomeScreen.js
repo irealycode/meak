@@ -19,17 +19,18 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <GestureHandlerRootView style={{flex:1}} >
-        <View style={{height:'100%',width:'100%',backgroundColor:'#4CAF50'}}>
+        <View style={{height:'100%',width:'100%',backgroundColor:'rgb(245, 255, 241)'}}>  
+          {/* rgb(245, 255, 241) */}
           
               
                 <Image source={require('../../../assets/imgs/dots.png')} style={{height:25,width:25,tintColor:'#1E1E1E',position:'absolute',left:20,top:49.5}} />
                 <View style={{position:'absolute',right:20,top:47,padding:10,height:30,width:30,justifyContent:'center',alignItems:'center',backgroundColor:'#1E1E1E',borderRadius:90}} >
-                  <Image source={require('../../../assets/imgs/man2pic.png')} style={{height:18,width:18,tintColor:'#4CAF50'}} />
+                  <Image source={require('../../../assets/imgs/man2pic.png')} style={{height:18,width:18,tintColor:'rgb(245, 255, 241)'}} />
                 </View>
                 
                 <View style={{height:30,width:width-140,alignSelf:'center',position:'absolute',top:47,flexDirection:'row',backgroundColor:!onFocus?'#1E1E1E':'rgba(0,0,0,0)',borderRadius:20,alignItems:'center',borderWidth:2,borderColor:'#1E1E1E'}} >
-                    <Image source={require('../../../assets/imgs/search.png')} style={{height:15,width:15,marginLeft:7.5,tintColor:!onFocus?'#4CAF50':'#1E1E1E'}} />
-                    <TextInput  cursorColor='black' onChangeText={(text)=>setSearch(text)} onEndEditing={()=>setOnFocus(0)} ref={focusRef} returnKeyType="search" style={{height:30,width:width-162.5,borderRadius:20,paddingVertical:0,paddingHorizontal:5,fontFamily:'RubikRegular',fontSize:15}} placeholder='Chercher..' placeholderTextColor={'#4CAF50'} />
+                    <Image source={require('../../../assets/imgs/search.png')} style={{height:15,width:15,marginLeft:7.5,tintColor:!onFocus?'rgb(245, 255, 241)':'#1E1E1E'}} />
+                    <TextInput  cursorColor='black' onChangeText={(text)=>setSearch(text)} onEndEditing={()=>setOnFocus(0)} ref={focusRef} returnKeyType="search" style={{height:30,width:width-162.5,borderRadius:20,paddingVertical:0,paddingHorizontal:5,fontFamily:'RubikRegular',fontSize:15}} placeholder='Chercher..' placeholderTextColor={'rgb(245, 255, 241)'} />
                 </View>
 
 

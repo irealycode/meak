@@ -40,14 +40,14 @@ export default function Account({navigation}) {
             </View>
         </TouchableOpacity>
         
-        <View style={{width:'70%',height:1,backgroundColor:'#555',marginTop:-1,marginLeft:'15%'}} ></View>        
+        {/* <View style={{width:'70%',height:1,backgroundColor:'#555',marginTop:-1,marginLeft:'15%'}} ></View>        
         
         <TouchableOpacity style={{flexDirection:'row',alignItems:'center',padding:14,backgroundColor:'rgb(45,45,45)'}} >
             <Image style={{height:25,width:25,marginLeft:30,tintColor:'#4CAF50'}} source={require('../../../../assets/imgs/send.png')} />
             <View>
                 <Text style={{fontFamily:'RubikRegular',fontSize:21,color:'white',marginLeft:10}} >Messages</Text>
             </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View style={{width:'70%',height:1,backgroundColor:'#555',marginTop:-1,marginLeft:'15%'}} ></View>        
 
@@ -69,7 +69,7 @@ export default function Account({navigation}) {
         
         <View style={{width:'70%',height:1,backgroundColor:'#555',marginTop:-1,marginLeft:'15%'}} ></View>        
 
-        <TouchableOpacity style={{flexDirection:'row',alignItems:'center',padding:14,backgroundColor:'rgb(45,45,45)'}} >
+        <TouchableOpacity onPress={()=>navigation.navigate('YourGIGs')} style={{flexDirection:'row',alignItems:'center',padding:14,backgroundColor:'rgb(45,45,45)'}} >
             <Image style={{height:25,width:25,marginLeft:30,tintColor:'#4CAF50'}} source={require('../../../../assets/imgs/manage.png')} />
             <View>
                 <Text style={{fontFamily:'RubikRegular',fontSize:21,color:'white',marginLeft:10}} >Votre GIGs</Text>
