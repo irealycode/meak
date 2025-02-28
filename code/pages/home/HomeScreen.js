@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { GestureHandlerRootView, RefreshControl, ScrollView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// import { SafeAreaView } from 'react-native-safe-area-context';
+import Chart from '../../../assets/imgs/chart.svg'
+
 
 const gigs = [
-  { id: '1',rating:0.4, title: 'Logo Design', plans:{basic:{price:50}}, clients:3 , image: {uri: 'https://placehold.co/400x400.png'} },
+  { id: '1',rating:4.4, title: 'Logo Design', plans:{basic:{price:50}}, clients:3 , image: {uri: 'https://placehold.co/400x400.png'} },
   { id: '2', title: 'Website Development', plans:{basic:{price:50}}, clients:26 ,image: {uri: 'https://placehold.co/400x200.png'} },
   { id: '3', title: 'SEO Optimization', plans:{basic:{price:50}}, clients:10, image: {uri: 'https://placehold.co/400x500.png'} },
 ];
@@ -82,10 +84,10 @@ export default function HomeScreen({ navigation }) {
                       </ScrollView>
                     </View>
 
-                    <View style={{width:width*0.9,height:width*0.9,position:"relative",borderRadius:20,backgroundColor:'black',alignSelf:'center',marginTop:0,boxShadow:'5px 5px 0px #4CAF50'}} >
+                    <View style={{width:width*0.9,height:width*0.9,position:"relative",borderRadius:20,backgroundColor:'#111',alignSelf:'center',marginTop:0}} >
                      
-                        <View style={{flexDirection:'row',width:'100%',height:'70 %',justifyContent:'center'}} >
-                            <View style={{height:'100%',width:width*0.9*0.3333-48/3,marginTop:12}} >
+                        <View style={{flexDirection:'row',width:'100%',height:'70%',alignItems:'flex-end'}} >
+                            {/* <View style={{height:'100%',width:width*0.9*0.3333-48/3,marginTop:12}} >
                                 <View style={{width:'100%',height:'60%',borderRadius:10,backgroundColor:'white'}} ></View>
                                 <View style={{width:'100%',height:'40%',borderRadius:10,marginTop:12,backgroundColor:'#4CAF50'}} ></View>
                             </View>
@@ -96,17 +98,23 @@ export default function HomeScreen({ navigation }) {
                             <View style={{height:'100%',width:width*0.9*0.3333-48/3,marginTop:12}} >
                                 <View style={{width:'100%',height:'40%',borderRadius:10,backgroundColor:'#4CAF50'}} ></View>
                                 <View style={{width:'100%',height:'60%',borderRadius:10,marginTop:12,backgroundColor:'white'}} ></View>
-                                {/* <View style={{width:'100%',height:(width*0.7)*0.25-18,borderRadius:20,marginTop:12,backgroundColor:'white'}} ></View> */}
-                            </View>
+                            </View> */}
+                            {
+                              Array(10).fill(1).map((_,i)=>{
+                                return(
+                                  <View key={i} style={{width:10,height:`${i*10}%`,marginRight:width/15.9,borderRadius:2,backgroundColor:'#fcc200',opacity:0.1*i,zIndex:1}} ></View>
+                                )
+                              })
+                            }
                         </View>
                       
 
                       <View style={{flexDirection:'row',alignItems:'center',alignSelf:'center',marginTop:40,position:'absolute',bottom:20}} >
                           <Text style={{fontFamily:'RubikMedium',fontSize:30,color:'white',alignSelf:'center'}} >Boostez votres </Text>
-                          <Text style={{fontFamily:'RubikMedium',fontSize:30,color:'#fcc200',alignSelf:'center'}} >GIGs </Text> 
+                          <Text style={{fontFamily:'RubikMedium',fontSize:30,color:'#fcc200',alignSelf:'center'}} >GIGs</Text> 
                           {/* <Text style={{fontFamily:'RubikMedium',fontSize:30,color:'white',alignSelf:'center'}} >pour vous</Text> */}
                       </View>
-                      <Image style={{height:'100%',width:'100%',borderRadius:20,position:'absolute'}} source={require('../../../assets/imgs/ad.png')} />
+                      {/* <Image style={{height:'100%',width:'100%',borderRadius:20,position:'absolute'}} source={require('../../../assets/imgs/ad.png')} /> */}
                       <Text style={{fontFamily:'JL',fontSize:16,position:'absolute',top:20,left:22,color:'rgba(255,255,255,0.3)'}} >Sponsorisé</Text>
                     </View>
                     <View style={{marginLeft:15,marginVertical:20,flexDirection:'row',alignItems:'center'}} >
@@ -117,7 +125,7 @@ export default function HomeScreen({ navigation }) {
                     {gigs?
                       gigs.map((gig,index)=>{
                         return(
-                        <TouchableOpacity  key={index} onPress={()=>{}} style={{height:100,width:'90%',borderRadius:10,backgroundColor:'rgb(53, 53, 53)',alignItems:'start',alignSelf:'center',marginBottom:20,flexDirection:'row',position:'relative'}} >
+                        <TouchableOpacity onPress={()=>navigation.navigate('ViewGIG',{gigId:gig.id})}  key={index}  style={{height:100,width:'90%',borderRadius:10,backgroundColor:'rgb(53, 53, 53)',alignItems:'start',alignSelf:'center',marginBottom:20,flexDirection:'row',position:'relative'}} >
                           <Image source={require('../../../assets/imgs/heart.png')} style={{height:25,width:25,position:'absolute',top:5,right:5,opacity:0.6}} />
                             
                           <Image source={gig.image} style={{height:100,width:110,borderRadius:10,borderTopRightRadius:0,borderBottomRightRadius:0}} />

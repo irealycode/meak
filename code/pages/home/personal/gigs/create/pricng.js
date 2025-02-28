@@ -26,8 +26,8 @@ export default function PriceGIG({navigation,route}){
     const [PriceB,setPriceB] = React.useState('')
     const [PriceS,setPriceS] = React.useState('')
     const [PriceP,setPriceP] = React.useState('')
-    const [Error,setE] = React.useState(false)
-    const [Errorr,setEr] = React.useState(false)
+    const [PriceHour,setPriceHour] = React.useState('')
+    const [Error,setError] = React.useState(false)
     const [Status,setStatus] = React.useState(false)
     const getAway = useSharedValue(0);
 
@@ -49,30 +49,61 @@ export default function PriceGIG({navigation,route}){
     
 
 
-  const next = () => {PlanP.trimEnd() != '' && PlanB.trimEnd() != '' && PlanS.trimEnd() != '' && DescP.trimEnd() != '' && DescS.trimEnd() != '' && DescB.trimEnd() != '' && PriceP.trimEnd() != '' && PriceS.trimEnd() != '' && PriceB.trimEnd() != ''?navigation.navigate('ImageGIG',{title:title,category:category,plans:{
-    basic:{
-    title:PlanB.trimEnd(),
-    description:DescB.trimEnd(),
-    price:PriceB.trimEnd()
-    },
-    standard:{
-        title:PlanS.trimEnd(),
-        description:DescS.trimEnd(),
-        price:PriceS.trimEnd()
+  const next = () => {
+    
+
+    if (Status) {
+      if (PriceHour.trim() === '') {
+        setError(3)
+        return
+      }
+
+      navigation.navigate('DescGIG',{title:title,category:category,plans:null,type:1,price:PriceHour.trimEnd(),uid:uid})
+      setError(-1)
+
+      return
+    }
+
+    if (PlanB.trim() === '' || DescB.trim() === '' || PriceB.trim() === '') {
+      setError(0)
+      return
+    }
+
+    if (PlanS.trim() === '' || DescS.trim() === '' || PriceS.trim() === '') {
+      setError(1)
+      return
+    }
+
+    if (PlanP.trim() === '' || DescP.trim() === '' || PriceP.trim() === '') {
+      setError(2)
+      return
+    }
+
+    if(PlanP.trimEnd() !== '' && PlanB.trimEnd() !== '' && PlanS.trimEnd() !== '' && DescP.trimEnd() !== '' && DescS.trimEnd() !== '' && DescB.trimEnd() !== '' && PriceP.trimEnd() !== '' && PriceS.trimEnd() !== '' && PriceB.trimEnd() !== ''){
+      navigation.navigate('DescGIG',{title:title,category:category,plans:{
+        basic:{
+        title:PlanB.trimEnd(),
+        description:DescB.trimEnd(),
+        price:PriceB.trimEnd()
         },
-    premium:{
-    title:PlanP.trimEnd(),
-    description:DescP.trimEnd(),
-    price:PriceP.trimEnd()
-    },
-  },uid:uid}):hour()}
+        standard:{
+            title:PlanS.trimEnd(),
+            description:DescS.trimEnd(),
+            price:PriceS.trimEnd()
+            },
+        premium:{
+        title:PlanP.trimEnd(),
+        description:DescP.trimEnd(),
+        price:PriceP.trimEnd()
+        },
+      },type:0,price:null,uid:uid})
+    }
+    setError(-1)
+
+  }
 
   const skip = () =>{
-    navigation.navigate('ImageGIG',{title:title,category:category,plans:{
-      basic:{
-        price:null
-      }
-    },uid:uid})
+    navigation.navigate('DescGIG',{title:title,category:category,plans:null,price:null,type:3,uid:uid})
   }
 
   const config = {
@@ -127,17 +158,6 @@ export default function PriceGIG({navigation,route}){
     };
   });
 
-  const hour = () =>{
-    if (Status) {
-      navigation.navigate('ImageGIG',{title:title,category:category,plans:{
-        basic:{
-          price:PriceB.trimEnd()
-        }
-      },uid:uid})
-    }else{
-      setE(true)
-    }
-  }
 
   const keyboardEscape = useAnimatedStyle(() => {
         return {
@@ -163,7 +183,7 @@ export default function PriceGIG({navigation,route}){
         <View>
 
 
-            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,borderRadius:12,position:'relative'},headerStyle]} >
+            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,borderRadius:12,position:'relative',borderColor:Error===0?'#f0716f':'#2C2C2C',borderWidth:1},headerStyle]} >
                 <TouchableOpacity onPress={()=>{HeightB.value=HeightB.value == 0? 230:0;borderB.value=HeightB.value == 0? 2:0}} style={{position:'absolute',height:'100%',width:'100%'}} ></TouchableOpacity>
                 <View pointerEvents="none" >
                 <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:'white',textAlign:'center',alignSelf:'center',}} >BASIQUE</Text>
@@ -188,7 +208,7 @@ export default function PriceGIG({navigation,route}){
 
 
 
-            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,marginTop:10,borderRadius:12,position:'relative'},headerStyle1]} >
+            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,marginTop:10,borderRadius:12,position:'relative',borderColor:Error===1?'#f0716f':'#2C2C2C',borderWidth:1},headerStyle1]} >
                 <TouchableOpacity onPress={()=>{HeightS.value=HeightS.value == 0? 230:0;borderS.value=HeightS.value == 0? 2:0}} style={{position:'absolute',height:'100%',width:'100%'}} ></TouchableOpacity>
                 <View pointerEvents="none" >
                 <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:'white',textAlign:'center',alignSelf:'center',}} >STANDARD</Text>
@@ -212,7 +232,7 @@ export default function PriceGIG({navigation,route}){
             </Animated.View>
 
 
-            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,marginTop:10,borderRadius:12,position:'relative'},headerStyle2]} >
+            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,marginTop:10,borderRadius:12,position:'relative',borderColor:Error===2?'#f0716f':'#2C2C2C',borderWidth:1},headerStyle2]} >
                 <TouchableOpacity onPress={()=>{HeightP.value=HeightP.value == 0? 230:0;borderP.value=HeightP.value == 0? 2:0}} style={{position:'absolute',height:'100%',width:'100%'}} ></TouchableOpacity>
                 <View pointerEvents="none" >
                 <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:'white',textAlign:'center',alignSelf:'center',}} >PREMIUM</Text>
@@ -236,12 +256,13 @@ export default function PriceGIG({navigation,route}){
             </Animated.View>
         </View> 
        </View>:
+
         <View>
           <View style={{flexDirection:'row',marginVertical:35,alignSelf:'center'}} >
-            <TextInput value={PriceB} onChangeText={(text)=>setPriceB(text)} style={{fontFamily:'RubikRegular',color:'white',fontSize:27,marginLeft:0,alignSelf:'center',paddingHorizontal:5}} maxLength={4} keyboardType="decimal-pad" placeholder="0" />
+            <TextInput value={PriceHour} onChangeText={setPriceHour} style={{fontFamily:'RubikRegular',color:'white',fontSize:27,marginLeft:0,alignSelf:'center',paddingHorizontal:5}} maxLength={4} keyboardType="decimal-pad" placeholder="0" placeholderTextColor={Error === 3?'#f0716f':'#999'} />
             <Text style={{fontFamily:'RubikRegular',color:'white',fontSize:27,marginRight:-10,alignSelf:'center',marginLeft:5}} ><Text style={{fontFamily:'RubikMedium',color:'#4CAF50'}} >DH</Text> / heur</Text>
           </View>
-         </View>}
+        </View>}
         
         <TouchableOpacity
           onPress={()=>next()}

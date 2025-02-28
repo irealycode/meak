@@ -9,6 +9,8 @@ import TitleGIG from './personal/gigs/create/title';
 import PriceGIG from './personal/gigs/create/pricng';
 import ImageGIG from './personal/gigs/create/image';
 import ChooseCity from '../signup/ChooseCity';
+import DescGIG from './personal/gigs/create/description';
+import ViewGIG from './gigs/ViewGIG';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,9 @@ export default function HomeRouter({ navigation }) {
         <Stack.Screen name="TitleGIG" component={TitleGIG} />
         <Stack.Screen name="PriceGIG" component={PriceGIG} />
         <Stack.Screen name="ImageGIG" component={ImageGIG} />
+        <Stack.Screen name="DescGIG" component={DescGIG} />
+        {/* VIEW GIG */}
+        <Stack.Screen name="ViewGIG" component={ViewGIG} />
         {/*  */}
         <Stack.Screen name="ChooseCategory" component={ChooseCategory}  />
         <Stack.Screen name="ChooseCity" component={ChooseCity}  />

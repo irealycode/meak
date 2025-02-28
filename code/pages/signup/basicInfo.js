@@ -20,6 +20,9 @@ export default function RegistrationScreen({navigation}) {
     };
 
     const chooseBirthDate = (str) =>{
+        if (str) {
+          setInvalid(-1)
+        }
         if (str.length <= 10) {
           if (str.length >= 2 && (parseInt(str.slice(0,2)) <= 0 || parseInt(str.slice(0,2)) > 31)) {
             setInvalid(2)

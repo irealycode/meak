@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Image, Dimensions, TouchableOpacity,ScrollView, RefreshControl } from 'react-native';
 import Back from '../../../../assets/imgs/back.svg'
+import { capFirstChar } from '../../../Imps';
 
 
 let width = Dimensions.get('window').width
@@ -10,10 +11,10 @@ export default function Account({navigation}) {
         firstName:'sohaib',
         lastName:'boulaich',
         balance:100,
-        image:'https://placehold.co/400x400.png'
+        image:'https://placehold.co/400x400.png',
+        rating:4.7
     }
 
-    const capFirstChar = (str) => (str[0].toUpperCase() + str.slice(1))
 
   const refresh = () =>{
     

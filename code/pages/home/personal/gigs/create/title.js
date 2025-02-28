@@ -8,11 +8,14 @@ export default function TitleGIG({navigation,route}){
   const uid = route.params
     const [category,setCategory] = useState(null);
     const [Title,setTitle] = useState('')
-    const [Error,setE] = useState(false)
+    const [Error,setError] = useState(-1)
     const getAway = useSharedValue(0);
 
     const chooseCategory = (cat) =>{
       setCategory(cat)
+      if (cat) {
+        setError(-1)
+      }
     }
 
     const goChooseCategory = () =>{
@@ -35,6 +38,19 @@ export default function TitleGIG({navigation,route}){
         };
     }, []);
 
+    const validate = () =>{
+      if (Title.trim() === '') {
+        setError(0)
+        return
+      }
+      if (!category?.title) {
+        setError(1)
+        return
+      }
+      setError(-1)
+      navigation.navigate('PriceGIG',{uid:uid,title:Title,category:category})
+    }
+
     const style = useAnimatedStyle(() => {
       return {
           paddingBottom:withTiming(getAway.value, {duration: 300,easing:Easing.bezier(0.5, 0.01, 0, 1)})
@@ -55,6 +71,8 @@ export default function TitleGIG({navigation,route}){
               paddingLeft: 15,
               fontFamily: 'RubikRegular',
               fontSize: 18,
+              borderColor:Error===0?'#f0716f':'#1e1e1e',
+              borderWidth:1
             }}
             placeholder='Je vais peindre ta maison...'
             placeholderTextColor="#888"
@@ -65,27 +83,28 @@ export default function TitleGIG({navigation,route}){
         
           {/* <TextInput onChangeText={(text)=>setT(text)} value={Title}  style={{fontFamily:'RubikMedium',fontSize:21,color:'white',textAlign:'center',marginTop:10,width:'80%',alignSelf:'center'}} maxLength={40} placeholderTextColor={Error?'#f0716f':'gray'} placeholder='je vais peindre ta maison...' /> */}
         <Text style={{fontFamily:'RubikMedium',fontSize:25,color:'white',textAlign:'center',alignSelf:'center',marginTop:10}} >Catégorie</Text>
-          <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: '#2C2C2C', justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 , marginTop:10}}>
+          <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: '#2C2C2C',borderColor:Error===1?'#f0716f':'#1e1e1e',borderWidth:1, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 , marginTop:10}}>
             <Text style={{ color: !category?.title?'#FFF':'#4CAF50', fontSize: 18, fontFamily: 'RubikBold' }}>{category?.title||'Choisir une catégorie'}</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
-                    onPress={()=>navigation.navigate('PriceGIG',{uid:uid,title:Title,category:category})}
-                    style={{
-                      width: '80%',
-                      height: 50,
-                      backgroundColor: '#4CAF50',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 12,
-                      shadowColor: '#000',
-                      shadowOpacity: 0.2,
-                      shadowOffset: { width: 0, height: 2 },
-                      shadowRadius: 4,
-                      elevation: 5,
-                      marginTop:40
-                    }}
-                  >
+            onPress={()=>validate()}
+            style={{
+              width: '80%',
+              height: 50,
+              backgroundColor: '#4CAF50',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 12,
+              shadowColor: '#000',
+              shadowOpacity: 0.2,
+              shadowOffset: { width: 0, height: 2 },
+              shadowRadius: 4,
+              elevation: 5,
+              marginTop:40,
+              
+            }}
+          >
             <Text style={{ color: '#FFF', fontSize: 18, fontFamily: 'RubikBold' }}>SUIVANT</Text>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=>navigation.goBack()} style={{alignSelf:'center',marginTop:10}} >
