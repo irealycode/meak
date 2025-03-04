@@ -1,11 +1,13 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, FlatList,Keyboard, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Linking,View, Text, TextInput, Image, TouchableOpacity, FlatList,Keyboard, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Back from '../../../../assets/imgs/back.svg'
 import { ScrollView } from 'react-native-gesture-handler';
-import { capFirstChar, timeAgo } from '../../../Imps';
+import { capFirstChar,timeAgo } from '../../../Imps';
 import Animated, { Easing, withTiming, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useThemeColors } from '../../../Imps';
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 let width = Dimensions.get("window").width
 
@@ -18,34 +20,37 @@ export default function ViewGIG({navigation}) {
     const activeIndicator = useSharedValue(0);
     const [planChosen,setPlanChosen] = useState(0)
     const bottomSheetRef = useRef(null);
+    const bottomSheetRef1 = useRef(null);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const seperatorInd = useSharedValue(0)
+    const [openingContact,setOpeningContact] = useState(false)
 
-  const snapPoints = useMemo(() => ["25%", "70%"]);
-
-    const gig = { id: '1',
-        rating:0.4,
-        ratings:2,
-        title: 'I will fix your kitchen and give you the best kitchen ever yay',
-        description:"What is Lorem Ipsum? \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        plans:{"basic": {"description": "i will weld something", "price": "150", "title": "basic"}, "premium": {"description": "i will have the kids come in the and bring then i to and get my them from work so to speak and get them ready", "price": "350", "title": "premium"}, "standard": {"description": "i have a question for your you know are the you are the not the a you are a you are a you are the the", "price": "200", "title": "standard"}},
-        price:null,
-        clients:3 ,
-        images: [{uri: 'https://placehold.co/400x400.png'},{uri: 'https://placehold.co/700x500.png'},{uri: 'https://placehold.co/200x900.png'},{uri: 'https://placehold.co/800x300.png'}] ,
-        type: 0
-    }
+  const snapPoints = useMemo(() => ["70%"]);
+  const snapPoints1 = useMemo(() => [300]);
 
     // const gig = { id: '1',
     //     rating:0.4,
     //     ratings:2,
     //     title: 'I will fix your kitchen and give you the best kitchen ever yay',
     //     description:"What is Lorem Ipsum? \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    //     plans:null,
-    //     price:'50',
+    //     plans:{"basic": {"description": "i will weld something", "price": "150", "title": "basic"}, "premium": {"description": "i will have the kids come in the and bring then i to and get my them from work so to speak and get them ready", "price": "350", "title": "premium"}, "standard": {"description": "i have a question for your you know are the you are the not the a you are a you are a you are the the", "price": "200", "title": "standard"}},
+    //     price:null,
     //     clients:3 ,
     //     images: [{uri: 'https://placehold.co/400x400.png'},{uri: 'https://placehold.co/700x500.png'},{uri: 'https://placehold.co/200x900.png'},{uri: 'https://placehold.co/800x300.png'}] ,
-    //     type: 2
+    //     type: 0,
     // }
+
+    const gig = { id: '1',
+        rating:0.4,
+        ratings:2,
+        title: 'I will fix your kitchen and give you the best kitchen ever yay',
+        description:"What is Lorem Ipsum? \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        plans:null,
+        price:'50',
+        clients:3 ,
+        images: [{uri: 'https://placehold.co/400x400.png'},{uri: 'https://placehold.co/700x500.png'},{uri: 'https://placehold.co/200x900.png'},{uri: 'https://placehold.co/800x300.png'}] ,
+        type: 2
+    }
 
     const ratings = [
         {
@@ -75,7 +80,10 @@ export default function ViewGIG({navigation}) {
         balance:100,
         image:'https://placehold.co/400x400.png',
         rating:4.7,
-        description:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+        description:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+        birthDate:'02/09/2002',
+        number:'+212 671276205'
+
     }
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -125,9 +133,20 @@ export default function ViewGIG({navigation}) {
 
     const plan = gig.plans?.[planChosen===0?'basic':planChosen===1?'standard':'premium']
 
+    const makeCall = (number) =>{
+        const phoneNumber = `tel:${number}`;
+        Linking.openURL(phoneNumber);
+    }
+
+    // const openWhatsApp = (number) => {
+    //     const text = "bonjour"
+    //     const url = `http://api.whatsapp.com/send?phone=${number}&text=${text}`;
+    //     Linking.openURL(url);
+    // };
+
     return(
         <GestureHandlerRootView style={{flex:1}} >
-            <View style={{backgroundColor:'#1e1e1e',width:'100%',height:'100%',display:'flex',flexDirection:'column',position:'relative'}} >
+            <View style={{backgroundColor:color1,width:'100%',height:'100%',display:'flex',flexDirection:'column',position:'relative'}} >
                 <ScrollView showsVerticalScrollIndicator={false} >
                     <View style={{width:'100%',height:width*0.7,backgroundColor:'#999',position:'relative'}} >
                         <Text style={{position:'absolute',right:10,bottom:10,zIndex:2,paddingHorizontal:10,paddingVertical:6,fontFamily:'RubikRegular',color:'white',backgroundColor:'rgba(0,0,0,0.7)',borderRadius:20}} >{currentIndex + 1} de {gig.images.length}</Text>
@@ -158,28 +177,28 @@ export default function ViewGIG({navigation}) {
                             )}
                         />
                     </View>
-                    <View style={{height:70,width:'100%',backgroundColor:'#111',display:'flex',flexDirection:'row',alignItems:'center',position:'relative',borderBottomColor:'#333',borderBottomWidth:1}} >
+                    <View style={{height:70,width:'100%',backgroundColor:colorW0,display:'flex',flexDirection:'row',alignItems:'center',position:'relative',borderBottomColor:color3,borderBottomWidth:1}} >
                         <Image source={{uri:userData.image}} style={{height:50,width:50,borderRadius:30,marginLeft:10}}  />  
                         <View style={{height:'100%',display:'flex',flexDirection:'column',justifyContent:'center',marginLeft:10}} >
-                            <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(userData.firstName)}  {capFirstChar(userData.lastName)}</Text>
+                            <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(userData.firstName)}  {capFirstChar(userData.lastName)}</Text>
                             <View style={{display:'flex',flexDirection:'row',alignItems:'center'}} >
-                                <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
+                                <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
                                 <Image style={{height:12,width:12,tintColor:'#fcc200',marginBottom:2}} source={require('../../../../assets/imgs/star.png')} />
                             </View>
                         </View>
 
                         <TouchableOpacity style={{position:'absolute',right:10,zIndex:2,transform:[{rotate:"90deg"}]}} onPress={() => {bottomSheetRef.current?.expand();seperatorInd.value = 1}} >
-                            <Back style={{height:30,width:30}} fill="#fff"  />  
+                            <Back style={{height:30,width:30}} fill={textColor}  />  
                         </TouchableOpacity>
                     </View>
 
                     {/*  */}
                     {/* Description */}
                     {/*  */}
-                    <Text style={{color:'white',fontFamily:'RubikMedium',fontSize:28,marginLeft:20,width:(width - 40),marginTop:10}} numberOfLines={isExpanded ? undefined : 2} >{capFirstChar(gig.title)}</Text>
-                    <Text style={{color:'white',fontFamily:'RubikLight',fontSize:16,marginLeft:20,width:(width - 40),marginTop:15}} ellipsizeMode="tail" numberOfLines={isExpanded ? undefined : 5}  >{gig.description}</Text>
+                    <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:28,marginLeft:20,width:(width - 40),marginTop:10}} numberOfLines={isExpanded ? undefined : 2} >{capFirstChar(gig.title)}</Text>
+                    <Text style={{color:textColor,fontFamily:'RubikLight',fontSize:16,marginLeft:20,width:(width - 40),marginTop:15}} ellipsizeMode="tail" numberOfLines={isExpanded ? undefined : 5}  >{gig.description}</Text>
                     {/* decoy */}
-                    <Text style={{color:'white',fontFamily:'RubikLight',fontSize:16,marginLeft:20,width:(width - 40),marginTop:15,position:'absolute',zIndex:-1,opacity:0}} ellipsizeMode="tail"  onTextLayout={onTextLayout} >{gig.description}</Text> 
+                    <Text style={{color:textColor,fontFamily:'RubikLight',fontSize:16,marginLeft:20,width:(width - 40),marginTop:15,position:'absolute',zIndex:-1,opacity:0}} ellipsizeMode="tail"  onTextLayout={onTextLayout} >{gig.description}</Text> 
                     {/* decoy */}
                     {showReadMore?
                     <TouchableOpacity onPress={() => setIsExpanded(!isExpanded)} >
@@ -193,37 +212,37 @@ export default function ViewGIG({navigation}) {
                     {/* Plans */}
                     {/*  */}
                     {gig.type === 0?<View>
-                        <View style={{width:'100%',height:57,borderTopWidth:1,borderBottomWidth:3,borderColor:'#333',marginTop:20,display:'flex',flexDirection:'row',position:'relative'}} >
+                        <View style={{width:'100%',height:57,borderTopWidth:1,borderBottomWidth:3,borderColor:color3,marginTop:20,display:'flex',flexDirection:'row',position:'relative'}} >
                             <TouchableOpacity onPress={()=>choosePlan(0)} style={{width:'33.333%',height:'100%',alignItems:"center",justifyContent:'center'}} >
-                                <Text style={{color:planChosen === 0?"#4CAF50":"#999",fontFamily:'RubikMedium',fontSize:19,marginRight:6,maxWidth:'100%',overflow:'hidden'}} >DH <Text style={{color:planChosen === 0?"white":"#999"}}>{getParsedNumber(gig.plans.basic.price)}</Text></Text>
+                                <Text style={{color:planChosen === 0?"#4CAF50":"#999",fontFamily:'RubikMedium',fontSize:19,marginRight:6,maxWidth:'100%',overflow:'hidden'}} >DH <Text style={{color:planChosen === 0?textColor:"#999"}}>{getParsedNumber(gig.plans.basic.price)}</Text></Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>choosePlan(1)} style={{width:'33.333%',height:'100%',alignItems:"center",justifyContent:'center'}} >
-                                <Text style={{color:planChosen === 1?"#4CAF50":"#999",fontFamily:'RubikMedium',fontSize:19,marginRight:6,maxWidth:'100%',overflow:'hidden'}} >DH <Text style={{color:planChosen === 1?"white":"#999"}}>{getParsedNumber(gig.plans.standard.price)}</Text></Text>
+                                <Text style={{color:planChosen === 1?"#4CAF50":"#999",fontFamily:'RubikMedium',fontSize:19,marginRight:6,maxWidth:'100%',overflow:'hidden'}} >DH <Text style={{color:planChosen === 1?textColor:"#999"}}>{getParsedNumber(gig.plans.standard.price)}</Text></Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>choosePlan(2)} style={{width:'33.333%',height:'100%',alignItems:"center",justifyContent:'center'}} >
-                                <Text style={{color:planChosen === 2?"#4CAF50":"#999",fontFamily:'RubikMedium',fontSize:19,marginRight:6,maxWidth:'100%',overflow:'hidden'}} >DH <Text style={{color:planChosen === 2?"white":"#999"}}>{getParsedNumber(gig.plans.premium.price)}</Text></Text>
+                                <Text style={{color:planChosen === 2?"#4CAF50":"#999",fontFamily:'RubikMedium',fontSize:19,marginRight:6,maxWidth:'100%',overflow:'hidden'}} >DH <Text style={{color:planChosen === 2?textColor:"#999"}}>{getParsedNumber(gig.plans.premium.price)}</Text></Text>
                             </TouchableOpacity>
                             <Animated.View style={[{position:'absolute',bottom:-3,height:3,width:'33.333%',borderRadius:3,backgroundColor:'#4CAF50'},indicatorStyle]} ></Animated.View>
                         </View>
                         
                         <View style={{width:(width - 40),marginTop:15,marginLeft:20}} >
-                            <Text style={{color:'white',fontFamily:'RubikMedium',fontSize:23,maxWidth:'100%'}} numberOfLines={2} >{capFirstChar(plan.title)}</Text>
-                            <Text style={{color:'white',fontFamily:'RubikLight',fontSize:16,maxWidth:'100%',marginTop:10}} >{capFirstChar(plan.description)}</Text>
+                            <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:23,maxWidth:'100%'}} numberOfLines={2} >{capFirstChar(plan.title)}</Text>
+                            <Text style={{color:textColor,fontFamily:'RubikLight',fontSize:16,maxWidth:'100%',marginTop:10}} >{capFirstChar(plan.description)}</Text>
                         </View>
                     </View>:null}
 
 
-                    {gig.type === 1?<View style={{width:'100%',borderTopWidth:1,borderColor:'#333',marginTop:20,alignItems:'center'}} >
-                        <Text style={{fontFamily:'RubikMedium',color:'white',fontSize:27,marginTop:20}} >{getParsedNumber(gig.price)} <Text style={{fontFamily:'RubikMedium',color:'#4CAF50'}} >DH</Text> / heur</Text>
+                    {gig.type === 1?<View style={{width:'100%',borderTopWidth:1,borderColor:color3,marginTop:20,alignItems:'center'}} >
+                        <Text style={{fontFamily:'RubikMedium',color:textColor,fontSize:27,marginTop:20}} >{getParsedNumber(gig.price)} <Text style={{fontFamily:'RubikMedium',color:'#4CAF50'}} >DH</Text> / heur</Text>
                     </View>:null}
 
-                    {gig.type === 2?<View style={{width:'100%',borderTopWidth:1,borderColor:'#333',marginTop:20,alignItems:'center'}} >
-                        <Text style={{fontFamily:'RubikMedium',color:'#999',fontSize:27,marginTop:20}} >Prix non précisé</Text>
+                    {gig.type === 2?<View style={{width:'100%',borderTopWidth:1,borderColor:color3,marginTop:20,alignItems:'center'}} >
+                        <Text style={{fontFamily:'RubikMedium',color:color4,fontSize:27,marginTop:20}} >Prix non précisé</Text>
                     </View>:null}
                     
 
                     <TouchableOpacity
-                            onPress={()=>next()}
+                            onPress={()=>{bottomSheetRef1.current?.expand();seperatorInd.value=1}}
                             style={{
                                 width: '80%',
                                 height: 50,
@@ -242,13 +261,13 @@ export default function ViewGIG({navigation}) {
                     {/* End Plans */}
                     {/*  */}
 
-                    <View style={{height:30,width:'100%',borderTopWidth:1,borderBottomWidth:1,backgroundColor:'#111',borderColor:'#333',marginTop:20}} ></View>
+                    <View style={{height:30,width:'100%',borderTopWidth:1,borderBottomWidth:1,backgroundColor:colorW0,borderColor:color3,marginTop:20}} ></View>
 
                     <View style={{width:'100%',position:'relative',paddingBottom:40}} >
-                        <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:21,marginLeft:20,marginTop:10}} >{getParsedNumber(gig.ratings)} Avis</Text>
+                        <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:21,marginLeft:20,marginTop:10}} >{getParsedNumber(gig.ratings)} Avis</Text>
 
                         <View style={{display:'flex',flexDirection:'row',alignItems:'center',marginLeft:20,marginTop:10,position:'absolute',right:10}} >
-                            <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:23,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
+                            <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:23,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
                             <Image style={{height:18,width:18,tintColor:'#fcc200',marginBottom:2}} source={require('../../../../assets/imgs/star.png')} />
                         </View>
 
@@ -263,14 +282,14 @@ export default function ViewGIG({navigation}) {
                             decelerationRate="fast"
                             
                             renderItem={({ item }) => (
-                                <View style={{ width:width,marginTop:15,paddingLeft:10 }}>
-                                    <View style={{width:(width - 50),height:(width - 200),borderRadius:12,backgroundColor:'#2c2c2c',marginLeft:10}} >
+                                <View style={{ width:width,marginTop:15,paddingLeft:10,paddingBottom:10 }}>
+                                    <View style={{width:(width - 50),height:(width - 200),borderRadius:12,backgroundColor:color5,marginLeft:10,boxShadow:`0px 0px 10px ${shadowColor1}`}} >
                                         <View style={{display:'flex',flexDirection:'row',alignItems:'center',height:70}} >
                                             <Image source={{uri:item.image}} style={{height:50,width:50,borderRadius:30,marginLeft:10}}  />  
                                             <View style={{height:'100%',display:'flex',flexDirection:'column',justifyContent:'center',marginLeft:10}} >
-                                                <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(item.firstName)}  {capFirstChar(item.lastName)}</Text>
+                                                <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(item.firstName)}  {capFirstChar(item.lastName)}</Text>
                                                 <View style={{display:'flex',flexDirection:'row',alignItems:'center'}} >
-                                                    <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{item.rating}</Text>
+                                                    <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{item.rating}</Text>
                                                     {
                                                         Array(item.rating).fill(1).map((_,i)=>{
                                                             return(
@@ -281,7 +300,7 @@ export default function ViewGIG({navigation}) {
                                                 </View>
                                             </View>
                                         </View>
-                                        <Text style={{color:'white',fontFamily:'RubikRegular',fontSize:15,paddingHorizontal:20}} numberOfLines={4} >{item.review}</Text>
+                                        <Text style={{color:textColor,fontFamily:'RubikRegular',fontSize:15,paddingHorizontal:20}} numberOfLines={4} >{item.review}</Text>
                                         <Text style={{position:'absolute',bottom:10,right:10,color:'#999',fontFamily:'RubikLight'}} >{timeAgo(item.time)}</Text>
                                     </View>
                                     
@@ -289,39 +308,77 @@ export default function ViewGIG({navigation}) {
                             )}
                         />
                     </View>
-
-
-
-
                 </ScrollView>
 
+
+
+
+
+
+
                 <Animated.View style={[{position:'absolute',top:0,left:0,width:'100%',height:'100%',backgroundColor:'rgba(0,0,0,0.4)'},seperatorStyle]} >
-                    <TouchableOpacity onPress={()=>bottomSheetRef.current?.close()} style={{height:'100%',width:'100%'}} ></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{bottomSheetRef.current?.close();bottomSheetRef1.current?.close();setOpeningContact(false);seperatorInd.value = 0}} style={{height:'100%',width:'100%'}} ></TouchableOpacity>
                 </Animated.View>
 
-                <BottomSheet onChange={(index) => {index === -1?seperatorInd.value = 0:null }} backgroundStyle={{ backgroundColor: "#1e1e1e" }} handleIndicatorStyle={{ backgroundColor: "white" }} enablePanDownToClose ref={bottomSheetRef} index={-1} snapPoints={snapPoints}>
-                    <BottomSheetView style={{flex:1,paddingHorizontal:20,alignItems:'center',backgroundColor:'#1e1e1e',zIndex:2}}>
-                        <View style={{height:70,width:width,display:'flex',flexDirection:'row',alignItems:'center',position:'relative',borderBottomColor:'#333',borderBottomWidth:1}} >
+                <BottomSheet onChange={(index) => {index === -1 && !openingContact?seperatorInd.value = 0:null }} backgroundStyle={{ backgroundColor: color1 }} handleIndicatorStyle={{ backgroundColor: textColor }} enablePanDownToClose ref={bottomSheetRef} index={-1} snapPoints={snapPoints}>
+                    <BottomSheetView style={{flex:1,paddingHorizontal:20,alignItems:'center',backgroundColor:color1,zIndex:2}}>
+                        <View style={{height:70,width:width,display:'flex',flexDirection:'row',alignItems:'center',position:'relative',borderBottomColor:color3,borderBottomWidth:1}} >
                             <Image source={{uri:userData.image}} style={{height:50,width:50,borderRadius:30,marginLeft:10}}  />  
                             <View style={{height:'100%',display:'flex',flexDirection:'column',justifyContent:'center',marginLeft:10}} >
-                                <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(userData.firstName)}  {capFirstChar(userData.lastName)}</Text>
+                                <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(userData.firstName)}  {capFirstChar(userData.lastName)}</Text>
                                 <View style={{display:'flex',flexDirection:'row',alignItems:'center'}} >
-                                    <Text style={{color:"white",fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
+                                    <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
                                     <Image style={{height:12,width:12,tintColor:'#fcc200',marginBottom:2}} source={require('../../../../assets/imgs/star.png')} />
                                 </View>
                             </View>
 
-                            <TouchableOpacity style={{position:'absolute',right:10,zIndex:2}} onPress={() => {bottomSheetRef.current?.expand();seperatorInd.value = 1}} >
-                                <Text style={{color:"#4CAF50",fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >Contacter</Text> 
+                            <TouchableOpacity style={{position:'absolute',right:10,zIndex:2}} onPress={() => {bottomSheetRef.current?.close();bottomSheetRef1.current?.expand();setOpeningContact(true)}} >
+                                <Text style={{color:"#4CAF50",fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >Contacter</Text>
                             </TouchableOpacity>
-
-                            
                             
                         </View>
-                        <Text style={{color:"white",alignSelf:'start',fontFamily:'RubikMedium',fontSize:19,marginTop:15}} >Description sur l'utilisateur</Text>
-                        <View style={{width:'100%',height:2,backgroundColor:'#333',marginTop:15}} ></View>
-                        <Text style={{color:"white",alignSelf:'start',fontFamily:'RubikLight',fontSize:15,marginTop:15}} >{userData.description}</Text>
+                        <Text style={{color:textColor,alignSelf:'start',fontFamily:'RubikMedium',fontSize:19,marginTop:15}} >Description sur l'utilisateur</Text>
+                        <View style={{width:'100%',height:2,backgroundColor:color3,marginTop:15}} ></View>
+                        <Text style={{color:textColor,alignSelf:'start',fontFamily:'RubikLight',fontSize:15,marginTop:15}} >{userData.description}</Text>
                         
+                    </BottomSheetView>
+                </BottomSheet>
+
+                <BottomSheet onChange={(index) => {if(index === -1){seperatorInd.value = 0;setOpeningContact(false)} }} backgroundStyle={{ backgroundColor: color1 }} handleIndicatorStyle={{ backgroundColor: textColor }} enablePanDownToClose ref={bottomSheetRef1} index={-1} snapPoints={snapPoints1}>
+                    <BottomSheetView style={{flex:1,paddingHorizontal:20,alignItems:'center',backgroundColor:color1,zIndex:2}}>
+                        <View style={{height:70,width:width,display:'flex',flexDirection:'row',alignItems:'center',position:'relative',borderBottomColor:color3,borderBottomWidth:1}} >
+                            <Image source={{uri:userData.image}} style={{height:50,width:50,borderRadius:30,marginLeft:10}}  />  
+                            <View style={{height:'100%',display:'flex',flexDirection:'column',justifyContent:'center',marginLeft:10}} >
+                                <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,maxWidth:(width/2),overflow:'hidden'}} numberOfLines={1} >{capFirstChar(userData.firstName)}  {capFirstChar(userData.lastName)}</Text>
+                                <View style={{display:'flex',flexDirection:'row',alignItems:'center'}} >
+                                    <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:16,marginRight:6}} >{userData.rating.toFixed(1)}</Text>
+                                    <Image style={{height:12,width:12,tintColor:'#fcc200',marginBottom:2}} source={require('../../../../assets/imgs/star.png')} />
+                                </View>
+                            </View>
+                        </View>
+                        {/* <Text style={{color:textColor,alignSelf:'start',fontFamily:'RubikMedium',fontSize:19,marginTop:15}} >Contacter</Text>
+                        <View style={{width:'100%',height:2,backgroundColor:color3,marginTop:15}} ></View> */}
+
+                        <TouchableOpacity onPress={()=>makeCall(userData.number)} style={{display:'flex',flexDirection:'row',marginTop:20,alignItems:'center',justifyContent:'center'}} >
+                            <Text style={{color:textColor,fontFamily:'RubikMedium',fontSize:30,maxWidth:(width - 35),overflow:'hidden'}} numberOfLines={1} >{userData.number}</Text>
+                            <Image style={{height:35,width:35,tintColor:'#4CAF50',marginBottom:2,marginLeft:10,transform:[{rotate:'270deg'}]}} source={require('../../../../assets/imgs/phone.png')} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={()=>makeCall(userData.number)}
+                            style={{
+                                width: '80%',
+                                height: 50,
+                                backgroundColor: '#4CAF50',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                borderRadius: 12,
+                                marginTop:20,
+                                alignSelf:'center'
+                            }}
+                        >
+                        <Text style={{ color: '#FFF', fontSize: 18, fontFamily: 'RubikBold' }}>CONTACTER</Text>
+                    </TouchableOpacity>
                     </BottomSheetView>
                 </BottomSheet>
             </View>

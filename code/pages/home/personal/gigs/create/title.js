@@ -1,7 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import { Text, View,TouchableOpacity,TextInput,TouchableWithoutFeedback,Keyboard } from 'react-native';
 import Animated, { Easing, withTiming, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
+import { useThemeColors } from '../../../../../Imps';
 
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 
 export default function TitleGIG({navigation,route}){
@@ -59,20 +61,21 @@ export default function TitleGIG({navigation,route}){
 
   return(
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Animated.View  style={[{height:'100%',width:'100%',backgroundColor:'#1e1e1e',alignItems:'center',justifyContent:"center" },style]} >
-        <Text style={{fontFamily:'RubikMedium',fontSize:25,color:'white',textAlign:'center',alignSelf:'center'}} >Titre</Text>
+      <Animated.View  style={[{height:'100%',width:'100%',backgroundColor:colorW0,alignItems:'center',justifyContent:"center" },style]} >
+        <Text style={{fontFamily:'RubikMedium',fontSize:25,color:textColor,textAlign:'center',alignSelf:'center'}} >Titre</Text>
         <View style={{ marginBottom: 10, width: '80%',marginTop:10 }}>
           <TextInput
             style={{
-              backgroundColor: '#2C2C2C',
+              backgroundColor: color1,
               height: 50,
               borderRadius: 12,
-              color: '#FFF',
+              color: textColor,
               paddingLeft: 15,
               fontFamily: 'RubikRegular',
               fontSize: 18,
-              borderColor:Error===0?'#f0716f':'#1e1e1e',
-              borderWidth:1
+              borderColor:Error===0?'#f0716f':color1,
+              borderWidth:1,
+              boxShadow:`0px 0px 10px ${shadowColor1}`
             }}
             placeholder='Je vais peindre ta maison...'
             placeholderTextColor="#888"
@@ -81,10 +84,10 @@ export default function TitleGIG({navigation,route}){
           />
         </View>
         
-          {/* <TextInput onChangeText={(text)=>setT(text)} value={Title}  style={{fontFamily:'RubikMedium',fontSize:21,color:'white',textAlign:'center',marginTop:10,width:'80%',alignSelf:'center'}} maxLength={40} placeholderTextColor={Error?'#f0716f':'gray'} placeholder='je vais peindre ta maison...' /> */}
-        <Text style={{fontFamily:'RubikMedium',fontSize:25,color:'white',textAlign:'center',alignSelf:'center',marginTop:10}} >Catégorie</Text>
-          <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: '#2C2C2C',borderColor:Error===1?'#f0716f':'#1e1e1e',borderWidth:1, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 , marginTop:10}}>
-            <Text style={{ color: !category?.title?'#FFF':'#4CAF50', fontSize: 18, fontFamily: 'RubikBold' }}>{category?.title||'Choisir une catégorie'}</Text>
+          {/* <TextInput onChangeText={(text)=>setT(text)} value={Title}  style={{fontFamily:'RubikMedium',fontSize:21,color:textColor,textAlign:'center',marginTop:10,width:'80%',alignSelf:'center'}} maxLength={40} placeholderTextColor={Error?'#f0716f':'gray'} placeholder='je vais peindre ta maison...' /> */}
+        <Text style={{fontFamily:'RubikMedium',fontSize:25,color:textColor,textAlign:'center',alignSelf:'center',marginTop:10}} >Catégorie</Text>
+          <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: color1,borderColor:Error===1?'#f0716f':color1,boxShadow:`0px 0px 10px ${shadowColor1}`,borderWidth:1, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 , marginTop:10}}>
+            <Text style={{ color: !category?.title?textColor:'#4CAF50', fontSize: 18, fontFamily: 'RubikBold' }}>{category?.title||'Choisir une catégorie'}</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
@@ -105,10 +108,10 @@ export default function TitleGIG({navigation,route}){
               
             }}
           >
-            <Text style={{ color: '#FFF', fontSize: 18, fontFamily: 'RubikBold' }}>SUIVANT</Text>
+            <Text style={{ color: 'white', fontSize: 18, fontFamily: 'RubikBold' }}>SUIVANT</Text>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=>navigation.goBack()} style={{alignSelf:'center',marginTop:10}} >
-            <Text style={{fontFamily:'RubikMedium',fontSize:22,color:'white',textAlign:'center',alignSelf:'center'}} >retour</Text>
+            <Text style={{fontFamily:'RubikMedium',fontSize:22,color:textColor,textAlign:'center',alignSelf:'center'}} >retour</Text>
           </TouchableOpacity>
       </Animated.View >
     </TouchableWithoutFeedback>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, TouchableWithoutFeedback, Image } from 'react-native';
-import Man from '../../../assets/imgs/manWalking.svg';
+import Man from '../../../assets/svgs/man.svg';
+import { useThemeColors } from '../../Imps';
 
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 export default function LoginScreen({ navigation }) {
   const [phone, setPhone] = useState('');
@@ -17,23 +19,23 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1E1E1E' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: color1 }}>
         
         {/* Text Logo */}
         <View style={{width:155, marginBottom: 40,position:"relative",display:'flex',flexDirection:'column',alignItems:"center",justifyContent:"center"}} >
             <View style={{display:"flex",flexDirection:"row",alignItems:'center',justifyContent:"center"}} >
-                <Text style={{ color: '#4CAF50',fontFamily:'RubikMedium', fontSize: 32, fontWeight: 'bold' }}>meak </Text>
+                <Text style={{ color: color2,fontFamily:'RubikMedium', fontSize: 32, fontWeight: 'bold' }}>meak </Text>
                 <View style={{marginBottom:0}} ><Man  style={{width:32,height:32}} /></View>
             </View>
-            <View style={{width:'80%',position:'absolute',bottom:-2,height:4,backgroundColor:'#4CAF50',borderRadius:5,marginTop:5}} ></View>
+            <View style={{width:'80%',position:'absolute',bottom:-1,height:4,backgroundColor:'#4CAF50',borderRadius:5,marginTop:5}} ></View>
         </View>
         
 
         {/* Phone Input Container */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#2C2C2C', borderRadius: 12, paddingHorizontal: 15, height: 50, width: '80%', borderWidth: 1, borderColor: '#555' }}>
-          <Text style={{ color: '#FFF',fontFamily:'RubikMedium', fontSize: 18, marginRight: 8 }}>+212</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: color5, borderRadius: 12, paddingHorizontal: 15, height: 50, width: '80%', borderWidth: 1, borderColor: color5,boxShadow:`0px 0px 10px ${shadowColor1}` }}>
+          <Text style={{ color: textColor,fontFamily:'RubikMedium', fontSize: 18, marginRight: 8 }}>+212</Text>
           <TextInput
-            style={{ flex: 1, fontSize: 18, color: '#FFF',fontFamily:'RubikRegular', }}
+            style={{ flex: 1, fontSize: 18, color: textColor,fontFamily:'RubikRegular', }}
             placeholder="Phone number"
             placeholderTextColor="#888"
             keyboardType="phone-pad"
@@ -61,7 +63,7 @@ export default function LoginScreen({ navigation }) {
             elevation: 5,
           }}
         >
-          <Text style={{ color: '#FFF',fontFamily:'RubikMedium', fontSize: 18, fontWeight: 'bold' }}>SUIVANT</Text>
+          <Text style={{ color: 'white',fontFamily:'RubikMedium', fontSize: 18, fontWeight: 'bold' }}>SUIVANT</Text>
         </TouchableOpacity>
         <Text style={{ color: '#999',fontFamily:'RubikMedium', fontSize: 12, marginRight: 8,position:'absolute',bottom:30,textAlign:'center' }}>En appuyant sur SUIVANT, vous acceptez nos Conditions Générales.</Text>
       </View>

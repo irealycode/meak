@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, TouchableWithoutFeedback, Image } from 'react-native';
-import Man from '../../../assets/imgs/manWalking.svg';
+import { useThemeColors } from '../../Imps';
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 
 export default function ConfirmCodeScreen({ navigation }) {
@@ -13,7 +14,7 @@ export default function ConfirmCodeScreen({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1E1E1E' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: color1 }}>
         
         {/* Text Logo */}
         {/* <View style={{width:155, marginBottom: 40,position:"relative",display:'flex',flexDirection:'column',alignItems:"center",justifyContent:"center"}} >
@@ -28,7 +29,7 @@ export default function ConfirmCodeScreen({ navigation }) {
             Confirmez le code
         </Text>
         <View style={{height:65,width:'80%',position:'relative',borderRadius:100,borderWidth:0,alignItems:'center',alignContent:'center',marginTop:6,alignSelf:'center',justifyContent:'center',flexDirection:'row'}} >
-            <TextInput onChangeText={setCode} value={code} keyboardType='phone-pad' style={{color:'#fff',fontFamily:'RubikMedium',display:'flex',alignItems:"center",justifyContent:"center",alignSelf:"center",fontSize:35,paddingHorizontal:20,letterSpacing:20,textAlign:'center',marginLeft:22}} maxLength={5} /> 
+            <TextInput onChangeText={setCode} value={code} keyboardType='phone-pad' style={{color:textColor,fontFamily:'RubikMedium',display:'flex',alignItems:"center",justifyContent:"center",alignSelf:"center",fontSize:35,paddingHorizontal:20,letterSpacing:20,textAlign:'center',marginLeft:22}} maxLength={5} /> 
             <View style={{display:"flex",flexDirection:'row',alignItems:'center',justifyContent:"center",position:'absolute',bottom:0}} >
                 {
                     Array(code.length||1).fill(1).map((_,i)=>{

@@ -4,6 +4,8 @@ import { Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Back from '../../../assets/imgs/back.svg'
 import Other from '../../../assets/imgs/other.svg'
+import { useThemeColors } from '../../Imps';
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 let width = Dimensions.get('window').width
 export default function ChooseCategory({navigation,route}) {
@@ -106,27 +108,27 @@ export default function ChooseCategory({navigation,route}) {
     
     
   return (
-    <View style={{width:'100%',height:'100%',backgroundColor:'#1E1E1E'}} >
-      <View style={{backgroundColor:'#1E1E1E',height:50,width:'100%'}} ></View>
-      <View style={{flexDirection:'row',alignItems:'center',borderBottomWidth:2,paddingBottom:12,borderColor:'#4CAF50',backgroundColor:'#1E1E1E'}} >
+    <View style={{width:'100%',height:'100%',backgroundColor:color1}} >
+      <View style={{backgroundColor:colorW0,height:50,width:'100%'}} ></View>
+      <View style={{flexDirection:'row',alignItems:'center',borderBottomWidth:2,paddingBottom:12,borderColor:'#4CAF50',backgroundColor:colorW0}} >
         <TouchableOpacity style={{marginHorizontal:15}} onPress={()=>{chooseCategory('other');navigation.goBack()}} >
-          <Back style={{height:50,width:50}}  />  
+          <Back style={{height:50,width:50}} fill={textColor} />  
         </TouchableOpacity>
-        <Text style={{fontFamily:'RubikMedium',fontSize:35,color:'white'}} >Categories</Text>
+        <Text style={{fontFamily:'RubikMedium',fontSize:35,color:textColor}} >Categories</Text>
       </View>
     <ScrollView showsVerticalScrollIndicator={false} >
         {
             categories.map((cat,i)=>{
                 return(
                 <View key={cat.title} style={{width:'100%'}} >
-                    <Text style={{fontFamily:'RubikRegular',fontSize:23,color:'white',alignSelf:'center',borderBottomWidth:0.4,borderTopWidth:i!==0?0.4:0,width:'100%',textAlign:'center',paddingVertical:7,borderColor:'gray'}} >{cat.title}</Text>
+                    <Text style={{fontFamily:'RubikRegular',fontSize:23,color:textColor,alignSelf:'center',borderBottomWidth:0.4,borderTopWidth:i!==0?0.4:0,width:'100%',textAlign:'center',paddingVertical:7,borderColor:'gray'}} >{cat.title}</Text>
                     {
                         cat.children.map((child)=>{
                             return(
                                 <TouchableOpacity key={child.name} onPress={()=>{chooseCategory({name:child.name,title:child.title});navigation.goBack()}} style={{flexDirection:'row',alignItems:'center',marginTop:7,marginBottom:7}} >
                                     <Image style={{height:45,width:45,marginLeft:20}} source={child.image} />
                                     <View>
-                                    <Text style={{fontFamily:'RubikRegular',fontSize:23,color:'white',marginLeft:20}} >{child.title}</Text>
+                                    <Text style={{fontFamily:'RubikRegular',fontSize:23,color:textColor,marginLeft:20}} >{child.title}</Text>
                                     <Text style={{fontFamily:'JL',fontSize:16,color:'gray',marginLeft:20,width:width-85}} >{child.description}</Text>
                                     </View>
                                 </TouchableOpacity>

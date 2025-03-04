@@ -2,6 +2,9 @@ import React, { useState,useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Animated, { Easing, withTiming, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
+import { useThemeColors } from '../../Imps';
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
+
 
 export default function RegistrationScreen2({ navigation }) {
   const [image, setImage] = useState(null);
@@ -61,7 +64,7 @@ export default function RegistrationScreen2({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Animated.View style={[{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1E1E1E', padding: 20 },style]}>
+      <Animated.View style={[{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: color1, padding: 20 },style]}>
         <Text style={{ color: '#4CAF50', fontSize: 32, fontFamily: 'RubikBold', marginBottom: 40 }}>
           Completez
         </Text>
@@ -72,7 +75,7 @@ export default function RegistrationScreen2({ navigation }) {
               width: 120,
               height: 120,
               borderRadius: 60,
-              backgroundColor: '#2C2C2C',
+              backgroundColor: color5,boxShadow:`0px 0px 10px ${shadowColor1}`,
               justifyContent: 'center',
               alignItems: 'center',
               overflow: 'hidden',
@@ -86,17 +89,17 @@ export default function RegistrationScreen2({ navigation }) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: '#2C2C2C', justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 }}>
-            <Text style={{ color: !category?'#FFF':'#4CAF50', fontSize: 18, fontFamily: 'RubikBold' }}>{category?.title||'Choisir une catégorie'}</Text>
+        <TouchableOpacity onPress={()=>goChooseCategory()} style={{ width: '80%', height: 50, backgroundColor: color5,boxShadow:`0px 0px 10px ${shadowColor1}`, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginBottom:10 }}>
+            <Text style={{ color: !category?'#888':'#4CAF50', fontSize: 18, fontFamily: 'RubikBold' }}>{category?.title||'Choisir une catégorie'}</Text>
         </TouchableOpacity>
 
         <View style={{ marginBottom: 20, width: '80%' }}>
           <TextInput
             style={{
-              backgroundColor: '#2C2C2C',
+              backgroundColor: color5,boxShadow:`0px 0px 10px ${shadowColor1}`,
               height: 100,
               borderRadius: 12,
-              color: '#FFF',
+              color: textColor,
               paddingLeft: 15,
               paddingTop: 10,
               fontFamily: 'RubikRegular',

@@ -7,6 +7,8 @@ import Animated, {
     useAnimatedStyle,
     Easing,
   } from 'react-native-reanimated';
+import { useThemeColors } from '../../../../../Imps';
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 
 export default function PriceGIG({navigation,route}){
@@ -167,91 +169,91 @@ export default function PriceGIG({navigation,route}){
  
 
   return(
-    <Animated.View style={[{height:'100%',width:'100%',backgroundColor:'#1e1e1e'},keyboardEscape]} >
+    <Animated.View style={[{height:'100%',width:'100%',backgroundColor:colorW0},keyboardEscape]} >
         <ScrollView style={{width:'100%'}} >
-          <View style={{flexDirection:'row',backgroundColor:'#2C2C2C',width:300,marginTop:130,height:48,borderRadius:12,maxWidth:'60%',alignSelf:'center'}} >
-            <TouchableOpacity onPress={()=>setStatus(false)} style={{backgroundColor:Status?'#2C2C2C':'#4CAF50',width:'50%',alignItems:'center',justifyContent:'center',borderRadius:12}} >
-                  <Text style={{fontSize:22,fontFamily:'RubikMedium',color:!Status?'#2C2C2C':'white'}} >Forfaits</Text>
+          <View style={{flexDirection:'row',backgroundColor:color1,width:300,marginTop:130,height:48,borderRadius:12,maxWidth:'60%',alignSelf:'center',boxShadow:`0px 0px 10px ${shadowColor1}`}} >
+            <TouchableOpacity onPress={()=>setStatus(false)} style={{backgroundColor:Status?color1:'#4CAF50',width:'50%',alignItems:'center',justifyContent:'center',borderRadius:12}} >
+                  <Text style={{fontSize:22,fontFamily:'RubikMedium',color:!Status?color1:textColor}} >Forfaits</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>setStatus(true)} style={{backgroundColor:!Status?'#2C2C2C':'#4CAF50',width:'50%',alignItems:'center',justifyContent:'center',borderRadius:12}} >
-                  <Text style={{fontSize:22,fontFamily:'RubikMedium',color:Status?'#2C2C2C':'white'}} >Heur</Text>
+            <TouchableOpacity onPress={()=>setStatus(true)} style={{backgroundColor:!Status?color1:'#4CAF50',width:'50%',alignItems:'center',justifyContent:'center',borderRadius:12}} >
+                  <Text style={{fontSize:22,fontFamily:'RubikMedium',color:Status?color1:textColor}} >Heur</Text>
             </TouchableOpacity>
         </View>
 
        {!Status?<View style={{marginBottom:20,marginTop:20,width:'100%',justifyContent:'center'}}>
-        <Text style={{fontFamily:'RubikMedium',fontSize:25,color:'white',textAlign:'center',alignSelf:'center',marginBottom:10}} >Forfaits</Text>
+        <Text style={{fontFamily:'RubikMedium',fontSize:25,color:textColor,textAlign:'center',alignSelf:'center',marginBottom:10}} >Forfaits</Text>
         <View>
 
 
-            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,borderRadius:12,position:'relative',borderColor:Error===0?'#f0716f':'#2C2C2C',borderWidth:1},headerStyle]} >
+            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:color1,paddingVertical:10,borderRadius:12,position:'relative',borderColor:Error===0?'#f0716f':color1,borderWidth:1,boxShadow:`0px 0px 10px ${shadowColor1}`},headerStyle]} >
                 <TouchableOpacity onPress={()=>{HeightB.value=HeightB.value == 0? 230:0;borderB.value=HeightB.value == 0? 2:0}} style={{position:'absolute',height:'100%',width:'100%'}} ></TouchableOpacity>
                 <View pointerEvents="none" >
-                <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:'white',textAlign:'center',alignSelf:'center',}} >BASIQUE</Text>
+                <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:textColor,textAlign:'center',alignSelf:'center',}} >BASIQUE</Text>
 
                 </View>
             </Animated.View>
 
-            <Animated.View style={[style,{width:'80%',alignSelf:'center',borderRadius:12,borderTopLeftRadius:0,borderTopRightRadius:0,overflow:'hidden',alignItems:'center',backgroundColor:'#333'}]} >
+            <Animated.View style={[style,{width:'80%',alignSelf:'center',borderRadius:12,borderTopLeftRadius:0,borderTopRightRadius:0,overflow:'hidden',alignItems:'center',backgroundColor:color3}]} >
                 <View style={{paddingVertical:12,paddingHorizontal:10,width:'100%'}} >
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'100%'}} onChangeText={(text)=>setPlanB(text)} value={PlanB}  maxLength={40} placeholderTextColor={'#999'} placeholder='Nommez votre forfait' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'100%'}} onChangeText={(text)=>setPlanB(text)} value={PlanB}  maxLength={40} placeholderTextColor={'#999'} placeholder='Nommez votre forfait' />
                 </View>
-                <View style={{height:2,width:'90%',backgroundColor:'white',borderRadius:10,alignSelf:'center'}} ></View>
+                <View style={{height:2,width:'90%',backgroundColor:textColor,borderRadius:10,alignSelf:'center'}} ></View>
                 <View style={{height:120,paddingHorizontal:10,width:'100%'}} >
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'100%'}} onChangeText={(text)=>setDescB(text)} value={DescB} maxLength={120} multiline placeholderTextColor={'#999'} placeholder='Décrivez les détails de votre plan' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'100%'}} onChangeText={(text)=>setDescB(text)} value={DescB} maxLength={120} multiline placeholderTextColor={'#999'} placeholder='Décrivez les détails de votre plan' />
                 </View>
-                <View style={{height:2,width:'90%',backgroundColor:'white',borderRadius:10,alignSelf:'center'}} ></View>
+                <View style={{height:2,width:'90%',backgroundColor:textColor,borderRadius:10,alignSelf:'center'}} ></View>
                 <View style={{paddingVertical:12,paddingHorizontal:10,width:'100%',flexDirection:'row',alignItems:'center'}} >
                     <Text style={{fontFamily:'RubikMedium',fontSize:18,color:'#4CAF50'}} >DH</Text>
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'90%',marginLeft:2}} keyboardType='numeric' onChangeText={(text)=>setPriceB(text)} value={PriceB}  maxLength={40} placeholderTextColor={'#999'} placeholder='Prix' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'90%',marginLeft:2}} keyboardType='numeric' onChangeText={(text)=>setPriceB(text)} value={PriceB}  maxLength={40} placeholderTextColor={'#999'} placeholder='Prix' />
                 </View>
             </Animated.View>
 
 
 
-            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,marginTop:10,borderRadius:12,position:'relative',borderColor:Error===1?'#f0716f':'#2C2C2C',borderWidth:1},headerStyle1]} >
+            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:color1,paddingVertical:10,marginTop:10,borderRadius:12,position:'relative',borderColor:Error===1?'#f0716f':color1,borderWidth:1,boxShadow:`0px 0px 10px ${shadowColor1}`},headerStyle1]} >
                 <TouchableOpacity onPress={()=>{HeightS.value=HeightS.value == 0? 230:0;borderS.value=HeightS.value == 0? 2:0}} style={{position:'absolute',height:'100%',width:'100%'}} ></TouchableOpacity>
                 <View pointerEvents="none" >
-                <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:'white',textAlign:'center',alignSelf:'center',}} >STANDARD</Text>
+                <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:textColor,textAlign:'center',alignSelf:'center',}} >STANDARD</Text>
 
                 </View>
             </Animated.View>
             
-            <Animated.View style={[style1,{width:'80%',alignSelf:'center',borderRadius:12,borderTopLeftRadius:0,borderTopRightRadius:0,overflow:'hidden',alignItems:'center',backgroundColor:'#333'}]} >
+            <Animated.View style={[style1,{width:'80%',alignSelf:'center',borderRadius:12,borderTopLeftRadius:0,borderTopRightRadius:0,overflow:'hidden',alignItems:'center',backgroundColor:color3}]} >
                 <View style={{paddingVertical:12,paddingHorizontal:10,width:'100%'}} >
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'100%'}} onChangeText={(text)=>setPlanS(text)} value={PlanS}  maxLength={40} placeholderTextColor={'#999'} placeholder='Nommez votre forfait' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'100%'}} onChangeText={(text)=>setPlanS(text)} value={PlanS}  maxLength={40} placeholderTextColor={'#999'} placeholder='Nommez votre forfait' />
                 </View>
-                <View style={{height:2,width:'90%',backgroundColor:'white',borderRadius:10,alignSelf:'center'}} ></View>
+                <View style={{height:2,width:'90%',backgroundColor:textColor,borderRadius:10,alignSelf:'center'}} ></View>
                 <View style={{height:120,paddingHorizontal:10,width:'100%'}} >
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'100%'}} onChangeText={(text)=>setDescS(text)} value={DescS} maxLength={120} multiline placeholderTextColor={'#999'} placeholder='Décrivez les détails de votre plan' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'100%'}} onChangeText={(text)=>setDescS(text)} value={DescS} maxLength={120} multiline placeholderTextColor={'#999'} placeholder='Décrivez les détails de votre plan' />
                 </View>
-                <View style={{height:2,width:'90%',backgroundColor:'white',borderRadius:10,alignSelf:'center'}} ></View>
+                <View style={{height:2,width:'90%',backgroundColor:textColor,borderRadius:10,alignSelf:'center'}} ></View>
                 <View style={{paddingVertical:12,paddingHorizontal:10,width:'100%',flexDirection:'row',alignItems:'center'}} >
                     <Text style={{fontFamily:'RubikMedium',fontSize:18,color:'#4CAF50'}} >DH</Text>
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'90%',marginLeft:2}} keyboardType='numeric' onChangeText={(text)=>setPriceS(text)} value={PriceS}  maxLength={40} placeholderTextColor={'#999'} placeholder='Prix' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'90%',marginLeft:2}} keyboardType='numeric' onChangeText={(text)=>setPriceS(text)} value={PriceS}  maxLength={40} placeholderTextColor={'#999'} placeholder='Prix' />
                 </View>
             </Animated.View>
 
 
-            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:'#2C2C2C',paddingVertical:10,marginTop:10,borderRadius:12,position:'relative',borderColor:Error===2?'#f0716f':'#2C2C2C',borderWidth:1},headerStyle2]} >
+            <Animated.View style={[{width:'80%',alignSelf:'center',backgroundColor:color1,paddingVertical:10,marginTop:10,borderRadius:12,position:'relative',borderColor:Error===2?'#f0716f':color1,borderWidth:1,boxShadow:`0px 0px 10px ${shadowColor1}`},headerStyle2]} >
                 <TouchableOpacity onPress={()=>{HeightP.value=HeightP.value == 0? 230:0;borderP.value=HeightP.value == 0? 2:0}} style={{position:'absolute',height:'100%',width:'100%'}} ></TouchableOpacity>
                 <View pointerEvents="none" >
-                <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:'white',textAlign:'center',alignSelf:'center',}} >PREMIUM</Text>
+                <Text  style={{fontFamily:'RubikRegular',fontSize:23,color:textColor,textAlign:'center',alignSelf:'center',}} >PREMIUM</Text>
 
                 </View>
             </Animated.View>
             
-            <Animated.View style={[style2,{width:'80%',alignSelf:'center',borderRadius:12,borderTopLeftRadius:0,borderTopRightRadius:0,overflow:'hidden',alignItems:'center',backgroundColor:'#333'}]} >
+            <Animated.View style={[style2,{width:'80%',alignSelf:'center',borderRadius:12,borderTopLeftRadius:0,borderTopRightRadius:0,overflow:'hidden',alignItems:'center',backgroundColor:color3}]} >
                 <View style={{paddingVertical:12,paddingHorizontal:10,width:'100%'}} >
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'100%'}} onChangeText={(text)=>setPlanP(text)} value={PlanP}  maxLength={40} placeholderTextColor={'#999'} placeholder='Nommez votre forfait' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'100%'}} onChangeText={(text)=>setPlanP(text)} value={PlanP}  maxLength={40} placeholderTextColor={'#999'} placeholder='Nommez votre forfait' />
                 </View>
-                <View style={{height:2,width:'90%',backgroundColor:'white',borderRadius:10,alignSelf:'center'}} ></View>
+                <View style={{height:2,width:'90%',backgroundColor:textColor,borderRadius:10,alignSelf:'center'}} ></View>
                 <View style={{height:120,paddingHorizontal:10,width:'100%'}} >
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'100%'}} onChangeText={(text)=>setDescP(text)} value={DescP} maxLength={120} multiline placeholderTextColor={'#999'} placeholder='Décrivez les détails de votre plan' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'100%'}} onChangeText={(text)=>setDescP(text)} value={DescP} maxLength={120} multiline placeholderTextColor={'#999'} placeholder='Décrivez les détails de votre plan' />
                 </View>
-                <View style={{height:2,width:'90%',backgroundColor:'white',borderRadius:10,alignSelf:'center'}} ></View>
+                <View style={{height:2,width:'90%',backgroundColor:textColor,borderRadius:10,alignSelf:'center'}} ></View>
                 <View style={{paddingVertical:12,paddingHorizontal:10,width:'100%',flexDirection:'row',alignItems:'center'}} >
                     <Text style={{fontFamily:'RubikMedium',fontSize:18,color:'#4CAF50'}} >DH</Text>
-                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:'white',width:'90%',marginLeft:2}} keyboardType='numeric' onChangeText={(text)=>setPriceP(text)} value={PriceP}  maxLength={40} placeholderTextColor={'#999'} placeholder='Prix' />
+                    <TextInput  style={{fontFamily:'RubikRegular',fontSize:18,color:textColor,width:'90%',marginLeft:2}} keyboardType='numeric' onChangeText={(text)=>setPriceP(text)} value={PriceP}  maxLength={40} placeholderTextColor={'#999'} placeholder='Prix' />
                 </View>
             </Animated.View>
         </View> 
@@ -259,8 +261,8 @@ export default function PriceGIG({navigation,route}){
 
         <View>
           <View style={{flexDirection:'row',marginVertical:35,alignSelf:'center'}} >
-            <TextInput value={PriceHour} onChangeText={setPriceHour} style={{fontFamily:'RubikRegular',color:'white',fontSize:27,marginLeft:0,alignSelf:'center',paddingHorizontal:5}} maxLength={4} keyboardType="decimal-pad" placeholder="0" placeholderTextColor={Error === 3?'#f0716f':'#999'} />
-            <Text style={{fontFamily:'RubikRegular',color:'white',fontSize:27,marginRight:-10,alignSelf:'center',marginLeft:5}} ><Text style={{fontFamily:'RubikMedium',color:'#4CAF50'}} >DH</Text> / heur</Text>
+            <TextInput value={PriceHour} onChangeText={setPriceHour} style={{fontFamily:'RubikRegular',color:textColor,fontSize:27,marginLeft:0,alignSelf:'center',paddingHorizontal:5}} maxLength={4} keyboardType="decimal-pad" placeholder="0" placeholderTextColor={Error === 3?'#f0716f':'#999'} />
+            <Text style={{fontFamily:'RubikRegular',color:textColor,fontSize:27,marginRight:-10,alignSelf:'center',marginLeft:5}} ><Text style={{fontFamily:'RubikMedium',color:'#4CAF50'}} >DH</Text> / heur</Text>
           </View>
         </View>}
         
@@ -285,7 +287,7 @@ export default function PriceGIG({navigation,route}){
           <Text style={{ color: '#FFF', fontSize: 18, fontFamily: 'RubikBold' }}>SUIVANT</Text>
         </TouchableOpacity> 
         <TouchableOpacity onPress={()=>navigation.goBack()} style={{alignSelf:'center',marginTop:10}} >
-          <Text style={{fontFamily:'RubikMedium',fontSize:22,color:'white',textAlign:'center',alignSelf:'center'}} >retour</Text>
+          <Text style={{fontFamily:'RubikMedium',fontSize:22,color:textColor,textAlign:'center',alignSelf:'center'}} >retour</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>skip()} style={{alignSelf:'center',marginTop:10,position:"absolute",top:55,right:10}} >
@@ -309,7 +311,7 @@ export default function PriceGIG({navigation,route}){
         price:PriceP.trimEnd()
         },
       },uid:uid}):hour()}} style={{backgroundColor:'#fcc200',borderRadius:20,padding:10,alignSelf:'center',paddingHorizontal:24,paddingVertical:12,marginTop:30}} >
-        <Text style={{fontFamily:'RubikRegular',fontSize:30,color:Error?'#ea3f3d':'white',textAlign:'center',alignSelf:'center'}} >continue</Text>
+        <Text style={{fontFamily:'RubikRegular',fontSize:30,color:Error?'#ea3f3d':textColor,textAlign:'center',alignSelf:'center'}} >continue</Text>
       </TouchableOpacity> */}
       
       </ScrollView>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert,Keyboard, Switch, TouchableWithoutFeedback } from 'react-native';
+import { useThemeColors } from '../../Imps';
+const {color0,color1,color2,color3,color4,color5,scndBGColor,colorW0,textColor,shadowColor,shadowColor1} = useThemeColors()
 
 export default function RegistrationScreen({navigation}) {
   const [firstName, setFirstName] = useState('');
@@ -52,7 +54,7 @@ export default function RegistrationScreen({navigation}) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1E1E1E', padding: 20 }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: color1, padding: 20 }}>
       
       <Text style={{ color: '#4CAF50', fontSize: 32, fontFamily: 'RubikBold', marginBottom: 40 }}>
         S'inscrire
@@ -61,10 +63,11 @@ export default function RegistrationScreen({navigation}) {
       <View style={{ marginBottom: 20, width: '80%' }}>
         <TextInput
           style={{
-            backgroundColor: '#2C2C2C',
+            backgroundColor: color5,
+            boxShadow:`0px 0px 10px ${shadowColor1}`,
             height: 50,
             borderRadius: 12,
-            color: '#FFF',
+            color: textColor,
             paddingLeft: 15,
             fontFamily: 'RubikRegular',
             fontSize: 18,
@@ -79,10 +82,11 @@ export default function RegistrationScreen({navigation}) {
       <View style={{ marginBottom: 20, width: '80%' }}>
         <TextInput
           style={{
-            backgroundColor: '#2C2C2C',
+            backgroundColor: color5,
+            boxShadow:`0px 0px 10px ${shadowColor1}`,
             height: 50,
             borderRadius: 12,
-            color: '#FFF',
+            color: textColor,
             paddingLeft: 15,
             fontFamily: 'RubikRegular',
             fontSize: 18,
@@ -98,10 +102,11 @@ export default function RegistrationScreen({navigation}) {
       <View style={{ marginBottom: 20, width: '80%' }}>
         <TextInput
           style={{
-            backgroundColor: '#2C2C2C',
+            backgroundColor: color5,
+            boxShadow:`0px 0px 10px ${shadowColor1}`,
             height: 50,
             borderRadius: 12,
-            color: invalid === 2?'red':'#FFF',
+            color: invalid === 2?'red':textColor,
             paddingLeft: 15,
             fontFamily: 'RubikRegular',
             fontSize: 18,
